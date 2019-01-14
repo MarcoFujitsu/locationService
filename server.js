@@ -18,9 +18,9 @@ app.get('/', (req, res) => {
         var myItem = getHighestConfidenceItem(answer.results);
       
         if(myItem!=null) {
-          var res = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-          console.log(res);
-          return res;
+          var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
+          console.log(result);
+          res.send(result);
         }  
       });
 
@@ -40,7 +40,6 @@ function getHighestConfidenceItem(results)
         highestConfidence = results[i].confidence;
 
       }
-
       
       return result;
     }
