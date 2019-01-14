@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
       });
 
     
-  res.send('Hello from App Engine 1.2!');
+  res.send('Hello from App Engine 1.3!');
 });
 
 function getHighestConfidenceItem(results)
