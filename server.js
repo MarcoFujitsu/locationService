@@ -28,7 +28,7 @@ app.post('/address', (req, res) => {
       if(myItem!=null) {
         
         var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-        result = '{  "replies": [ { "type": "text","content": "Hello world!"    } ] } ';
+        result = '{  "replies": [ { "type": "text","content": "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + ' "    } ] } ';
         res.send(result);
       }  
     });
