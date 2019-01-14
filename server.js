@@ -19,13 +19,14 @@ app.get('/', (req, res) => {
       
         if(myItem!=null) {
           var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-          console.log(result);
-          res.send(result);
+          var a = JSON.parse(result);
+          res.json(result);
+          
         }  
       });
 
     
-  res.send('Hello from App Engine 1.3!');
+  // res.send('Hello from App Engine 1.3!');
 });
 
 function getHighestConfidenceItem(results)
