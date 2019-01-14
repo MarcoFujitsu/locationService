@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
         if(myItem!=null) {
           var res = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
           console.log(res);
-          return JSON.parse(res);
+          return res;
         }  
       });
 
