@@ -26,7 +26,9 @@ app.post('/address', (req, res) => {
       var myItem = getHighestConfidenceItem(answer.results);
     
       if(myItem!=null) {
+        
         var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
+        result = '{  "replies": [ { "type": "text","content": "Hello world!"    } ] } ';
         res.send(result);
       }  
     });
