@@ -29,7 +29,14 @@ app.post('/address', (req, res) => {
         
         var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
         result = '{  "replies": [ { "type": "text","content": "lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng + ' " } ] } ';
-        res.send(result);
+        
+        a = { replies: [
+          { type : "text", 
+            content : "lat: " + myItem.geometry.lat + " lng: " + myItem.geometry.lng 
+        }
+        ]
+      }
+        res.send(a);
         
 /*        
         res.send(
