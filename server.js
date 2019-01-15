@@ -29,15 +29,15 @@ app.post('/address', (req, res) => {
         
         var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
         // result = '{  "replies": [ { "type": "text","content": "lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng + ' " } ] } ';
-        res.send([
+        res.send(
           {
             type: 'quickReplies',
             content: {
               title: 'Sorry, but I could not find any results for your request',
               buttons: [{ title: 'Start over', value: 'Start over' }]
-            },
-          },
-        ]);
+            }
+          }
+        );
 
 
         
