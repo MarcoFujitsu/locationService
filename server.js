@@ -32,8 +32,8 @@ app.post('/address', (req, res) => {
         
         res.send({ 
           type: "text",
-          delay: "2", 
-          content: "test text"
+          delay: "0", 
+          content: "test text",
         });
         
 /*        
