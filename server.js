@@ -14,7 +14,7 @@ app.post('/address', (req, res) => {
     const path = '/geocode/v1/json?key=a58edd2883b64e25abc38a24148363d0&pretty=1&q=';
     var address = "de linge 34, 3448 CV Woerden, Holland";
     var data = encodeURIComponent(req.query["address"]);
-
+    console.log(req.body);
     var myBody =req.body.address;
     var data = encodeURIComponent(myBody);
 
