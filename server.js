@@ -29,9 +29,21 @@ app.post('/address', (req, res) => {
         
         var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
         // result = '{  "replies": [ { "type": "text","content": "lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng + ' " } ] } ';
-        result = '{    "type": "card",    "content": {      "title": "Your location",      "subtitle": "LOCATION",      "imageUrl": "http://open.mapquestapi.com/staticmap/v4/getmap?key=ENYNqiKYXC843j4cnbcezq4awv1UI5tB&size=400,400&zoom=16&center=52.0532588,4.4985999&pois=red_1,52.0532588,4.4985999,0,0",	"buttons": [        {          "title": "BUTTON_TITLE",          "type": "postback",          "value": "BUTTON_VALUE"        }      ]    }  }';
+        res.send([
+          {
+            type: 'quickReplies',
+            content: {
+              title: 'Sorry, but I could not find any results for your request :(',
+              buttons: [{ title: 'Start over', value: 'Start over' }],
+            },
+          },
+        ]);
+
+
+        
+        /*result = '{    "type": "card",    "content": {      "title": "Your location",      "subtitle": "LOCATION",      "imageUrl": "http://open.mapquestapi.com/staticmap/v4/getmap?key=ENYNqiKYXC843j4cnbcezq4awv1UI5tB&size=400,400&zoom=16&center=52.0532588,4.4985999&pois=red_1,52.0532588,4.4985999,0,0",	"buttons": [        {          "title": "BUTTON_TITLE",          "type": "postback",          "value": "BUTTON_VALUE"        }      ]    }  }';
         console.log(result);
-        res.send(result);
+        res.send(result); */
       }  
     });
 });
