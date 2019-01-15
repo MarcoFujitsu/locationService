@@ -31,8 +31,11 @@ app.post('/address', (req, res) => {
         result = '{  "replies": [ { "type": "text","content": "lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng + ' " } ] } ';
         
         a = { replies: [
-          { type : "text", 
-            content : "lat: " + myItem.geometry.lat + " lng: " + myItem.geometry.lng 
+          { type: 'quickReplies',
+          content: {
+            title: 'Sorry, but I could not find any results for your request',
+            buttons: [{ title: 'Start over', value: 'Start over' }]
+          }
         }
         ]
       }
