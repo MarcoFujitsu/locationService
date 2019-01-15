@@ -33,8 +33,8 @@ app.post('/address', (req, res) => {
           {
             type: 'quickReplies',
             content: {
-              title: 'Sorry, but I could not find any results for your request :(',
-              buttons: [{ title: 'Start over', value: 'Start over' }],
+              title: 'Sorry, but I could not find any results for your request',
+              buttons: [{ title: 'Start over', value: 'Start over' }]
             },
           },
         ]);
