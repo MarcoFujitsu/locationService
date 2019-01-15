@@ -28,13 +28,8 @@ app.post('/address', (req, res) => {
       if(myItem!=null) {
         
         var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-        // result = '{  "replies": [ { "type": "text","content": "lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng + ' " } ] } ';
-        
-        res.send({ 
-          type: "text",
-          delay: "0", 
-          content: "test text",
-        });
+        result = '{  "replies": [ { "type": "text","content": "lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng + ' " } ] } ';
+        res.send(result);
         
 /*        
         res.send(
