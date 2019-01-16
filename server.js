@@ -94,40 +94,7 @@ app.get('/', (req, res) => {
 
 });
 
-function getCoordinates(myAddress) {
-  const url = 'https://api.opencagedata.com';
-    //const address ='Het Kwadrant 1 Maarssen, Holland';
-    const path = '/geocode/v1/json?key=a58edd2883b64e25abc38a24148363d0&pretty=1&q=';
-    var address = "de linge 34, 3448 CV Woerden, Holland";
-    var data = encodeURIComponent(myAddress);
 
-    unirest.get(url+path+data)
-    .end(function(response) {
-      console.log(response.body);
-      var answer = response.body;   
-      
-      var myItem = getHighestConfidenceItem(answer.results);
-    
-      if(myItem!=null) {
-        var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-        var a = JSON.parse(result);
-        return result;
-      }  
-    });
-    /*
-    var result = request(url+path+data,function (error, response, body) {
-        
-        var answer = JSON.parse(body);   
-      
-        var myItem = getHighestConfidenceItem(answer.results);
-      
-        if(myItem!=null) {
-          var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-          var a = JSON.parse(result);
-          return result;
-        }  
-      });*/
-}
 function getHighestConfidenceItem(results)
 {
     var result;
