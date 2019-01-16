@@ -44,7 +44,7 @@ app.post('/address', (req, res) => {
           language: "en",
           memory : {
             lat : myItem.geometry.lat,
-            lng : myItetm.geometry.lng
+            lng : myItem.geometry.lng
           }
         }
       }
