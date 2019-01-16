@@ -5,16 +5,17 @@ const unirest = require('unirest');
 const bodyParser = require("body-parser");
 const fs = require('fs');
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/address', (req, res) => {
   const url = 'https://api.opencagedata.com';
-    //const address ='Het Kwadrant 1 Maarssen, Holland';
-    const path = '/geocode/v1/json?key=a58edd2883b64e25abc38a24148363d0&pretty=1&q=';
-    var address = "de linge 34, 3448 CV Woerden, Holland";
+    
+    var key = process.env.geolocationkey;
+    const path = '/geocode/v1/json?key=' + key +  '&pretty=1&q=';
+   
     var data = encodeURIComponent(req.query["address"]);
-    console.log(req.body);
     var myBody =req.body.address;
     var data = encodeURIComponent(myBody);
 
@@ -61,40 +62,6 @@ app.post('/address', (req, res) => {
     });
 });
 
-
-app.get('/', (req, res) => {
-    
-    const url = 'https://api.opencagedata.com';
-    //const address ='Het Kwadrant 1 Maarssen, Holland';
-    const path = '/geocode/v1/json?key=a58edd2883b64e25abc38a24148363d0&pretty=1&q=';
-    var address = "Het kwadrant 1 , maarssen, holland";
-    var data = encodeURIComponent(address);
-    console.log(req.body);
-    
-    var result = request(url+path+data,function (error, response, body) {
-
-      console.log(body);
-        
-        var answer = JSON.parse(body);   
-      
-        var myItem = getHighestConfidenceItem(answer.results);
-      
-        if(myItem!=null) {
-          var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-          var a = JSON.parse(result);
-          res.json(result);
-        }  
-      }).end(function(res) { 
-          if (res.error) {
-            console.log('GET error', res.error)
-          } else {
-            console.log('GET response', res.body)
-          }
-      });
-
-});
-
-
 function getHighestConfidenceItem(results)
 {
     var result;
@@ -112,8 +79,6 @@ function getHighestConfidenceItem(results)
     }
 
 }
-
-
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8080;
