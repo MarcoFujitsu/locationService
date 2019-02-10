@@ -1,21 +1,21 @@
-const express = require('express');
-const app = express();
-const request = require('request');
-const unirest = require('unirest');
-const bodyParser = require("body-parser");
-const fs = require('fs');
+var express = require('express');
+var app = express();
+var request = require('request');
+var unirest = require('unirest');
+var bodyParser = require("body-parser");
+var fs = require('fs');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/address', (req, res) => {
+app.post("/address", (req, res) => {
   const url = 'https://api.opencagedata.com';
     
     var key = process.env.geolocationkey;
     const path = '/geocode/v1/json?key=' + key +  '&pretty=1&q=';
    
-    var data = encodeURIComponent(req.query["address"]);
+    var data = encodeURIComponent(req.query["address"]); 
     var myBody =req.body.address;
     var data = encodeURIComponent(myBody);
 
