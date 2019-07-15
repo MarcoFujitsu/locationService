@@ -4,18 +4,16 @@ pool:
   vmImage: 'Ubuntu 16.04'
   
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '11.6.0'
-  
-- task: Npm@1
-  displayName: 'npm install'
-  inputs:
-    command: install
-   
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    rootFolderOrFile: '$(Build.SourcesDirectory)'
     includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
