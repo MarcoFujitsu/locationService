@@ -41,7 +41,6 @@ app.post("/address", (req, res) => {
 
           ],
           conversation: {
-            language: "en",
             memory: {
               lat: myItem.geometry.lat,
               lng: myItem.geometry.lng
