@@ -1,97 +1,77 @@
-let convert = {};
-var express = require('express');
-var app = express();
-var request = require('request');
-var unirest = require('unirest');
-var bodyParser = require("body-parser");
-var fs = require('fs');
+/* eslint linebreak-style: ["error", "windows"] */
+const express = require("express");
+const unirest = require("unirest");
+const bodyParser = require("body-parser");
 
--
+const convert = {};
+const app = express();
+
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: false,
 }));
 app.use(bodyParser.json());
 
 app.post("/address", (req, res) => {
-  console.log('address request');
-  const url = 'https://api.opencagedata.com';
+  const url = "https://api.opencagedata.com";
 
-  var key = process.env.geolocationkey;
-  const path = '/geocode/v1/json?key=' + key + '&pretty=1&q=';
-
-  var data = encodeURIComponent(req.query["address"]);
-  var myBody = req.body.address;
-  var data = encodeURIComponent(myBody);
+  const key = process.env.geolocationkey;
+  const path = `/geocode/v1/json?key=${key}&pretty=1&q=`;
+  const data = encodeURIComponent(req.body.address);
 
   unirest.get(url + path + data)
-    .end(function (response) {
+    .end((response) => {
+      const answer = response.body;
 
-      var answer = response.body;
-
-      var myItem = convert.getHighestConfidenceItem(answer.results);
+      const myItem = convert.getHighestConfidenceItem(answer.results);
 
       if (myItem != null) {
-
-        var result = '{ "lat" : "' + myItem.geometry.lat + '", "lng" : "' + myItem.geometry.lng + '"}';
-        result = '{  "replies": [ { "type": "text","content": "lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng + ' " } ] } ';
-
-        a = {
+        const myAnswer = {
           replies: [
-            convert.GenerateQuickReply('lat: ' + myItem.geometry.lat + ' lng: ' + myItem.geometry.lng)
-
+            convert.GenerateQuickReply(`lat: ${myItem.geometry.lat} lng: ${myItem.geometry.lng}`),
           ],
           conversation: {
             memory: {
               lat: myItem.geometry.lat,
-              lng: myItem.geometry.lng
-            }
-          }
-        }
-
+              lng: myItem.geometry.lng,
+            },
+          },
+        };
+        res.status(201).send(myAnswer);
       } else {
-        a = {
+        const myAnswer = {
           replies: [{
-            "type": "text",
-            "content": "No location found"
-          }]
-        }
+            type: "text",
+            content: "No location found",
+          }],
+        };
+        res.status(404).send(myAnswer);
       }
-      res.send(a);
     });
 });
 
-convert.GenerateQuickReply = function (content) {
-  var result = {
-    type: 'quickReplies',
+convert.GenerateQuickReply = function quickReply(content) {
+  const result = {
+    type: "quickReplies",
     content: {
-      title: content
-    }
+      title: content,
+    },
   };
   return result;
-}
+};
 
-convert.GenerateMemory = function (content) {
-  var result = {};
+convert.getHighestConfidenceItem = function gethighestitem(results) {
+  let result;
+  let highestConfidence = 0;
 
-}
-
-convert.getHighestConfidenceItem = function (results)
-// function getHighestConfidenceItem(results)
-{
-  var result;
-  var highestConfidence = 0;
-
-  for (i = 0; i < results.length; i++) {
+  for (let i = 0; i < results.length; i += 1) {
     if (results[i].confidence > highestConfidence) {
       result = results[i];
       highestConfidence = results[i].confidence;
-
     }
-
     return result;
   }
-
-}
+  return result;
+};
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8080;
