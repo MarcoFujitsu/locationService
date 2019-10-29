@@ -1,0 +1,44 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Fujitsu location service",
+        "description": "Fujitsu Location Service API Documentation",
+        "contact": "marco.littel@ts.fujitsu.com",
+        "version": "1.0.0"
+    },
+    "components": {
+        "schemas" : {
+            "address" : {
+                "type": "object", 
+                "properties": {
+                    "address": {
+                        "type": "string",
+                        "description": "full address string to search"
+                    }
+                }
+            }
+        },
+        "requestbodies": {
+            "addressmessage": {
+                "description": "address message to post to the location service",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/address"
+                        } 
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/address": {
+            "post": {
+                "description": "find location for address",
+                "requestBody" : {
+                    "$ref": "#/components/requestbodies/addressmessage"  
+                }
+            }
+        }
+    }
+}
